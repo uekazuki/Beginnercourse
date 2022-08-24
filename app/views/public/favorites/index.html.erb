@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Public Favorites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @public_favorites.each do |public_favorite| %>
+      <tr>
+        <td><%= link_to 'Show', public_favorite %></td>
+        <td><%= link_to 'Edit', edit_public_favorite_path(public_favorite) %></td>
+        <td><%= link_to 'Destroy', public_favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Public Favorite', new_public_favorite_path %>
