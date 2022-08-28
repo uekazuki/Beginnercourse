@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_public_post_path(@public_post) %> |
-<%= link_to 'Back', public_posts_path %>
+<% @comments.each do | comment | %>
+<p><%= comment.comment %></p>
+<% end %>
+
+<%= link_to 'Back', posts_path %>

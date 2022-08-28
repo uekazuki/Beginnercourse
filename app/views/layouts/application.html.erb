@@ -1,16 +1,79 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Beginnercourse</title>
+    <title>料理サイト</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
-  </body>
+    <header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/"><span>料理サイト</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse show" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+        <% if customer_signed_in? %>
+          <li>
+            <%= link_to posts_path, class:"nav-link text-light" do  %>
+              <i class="fa-solid fa-list"></i>postrisuto 
+            <% end %>
+          </li>
+          <li>
+            <%= link_to customers_path, class:"nav-link text-light" do  %>
+              <i class="fas fa-users"></i> Users
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_post_path, class:"nav-link text-light" do  %>
+            <i class="fas fa-book-open"></i> posts
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_customer_session_path, method: :delete, class:"nav-link text-light" do %>
+            <i class="fas fa-sign-out-alt"></i> Log out
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to root_path, class:"nav-link text-light" do %>
+              <i class="fas fa-home"></i> Home
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_customer_registration_path, class:"nav-link text-light" do  %>
+            <i class="fas fa-user-plus"></i> Sign up
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_customer_session_path, class:"nav-link text-light" do %>
+            <i class="fas fa-sign-in-alt"></i> Log in
+            <% end %>
+          </li>
+        <% end %>  
+        </ul>
+      </div>
+    </div>
+  </nav>
+    
+  </header>
+  <%= notice %>
+  <%= yield %>
+  <footer>
+  <div class="container mt-5">
+  	<div class="row">
+    	<div class="mx-auto">
+    		<p>CopyRight Infratop.inc</p>
+    	</div>
+    </div>
+  </div>
+</footer>
 </html>

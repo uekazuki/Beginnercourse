@@ -20,9 +20,10 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    current_customer.update(customer_params)
+    redirect_to customers_path
+  end
 
   # DELETE /resource
   # def destroy
@@ -59,4 +60,11 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+
+  private
+
+  def customer_params
+    params.require(:customer).permit(:name, :introduction)
+  end
 end

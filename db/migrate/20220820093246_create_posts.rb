@@ -3,6 +3,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
     create_table :posts do |t|
       t.string :product_name
       t.text :content
+      t.integer :customer_id
 
       t.timestamps
     end

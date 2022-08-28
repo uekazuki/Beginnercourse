@@ -1,25 +1,41 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Public Favorites</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @public_favorites.each do |public_favorite| %>
-      <tr>
-        <td><%= link_to 'Show', public_favorite %></td>
-        <td><%= link_to 'Edit', edit_public_favorite_path(public_favorite) %></td>
-        <td><%= link_to 'Destroy', public_favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="card-list-container py-5">
+  <% @favorites.each do |favorite| %>
+  <% post = favorite.post %>
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image, class:"card-img-top"; %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Public Favorite', new_public_favorite_path %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag post.get_image, class:"mt-3 rounded-circle"; %>
+        </div>
+        <div class="col-10">
+          <p class="card-title">
+            <%= link_to(post_path(post.id), class:"text-dark") do %>
+              <strong><i class="far fa-flag"></i><span> <%= post.product_name %></span></strong>
+            <% end %>
+          </p>
+          <p class="card-text">説明：<%= post.content %></p>
+          <span><%= link_to "#{post.comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
+          <%= button_to "kommentosuru", new_post_post_comment_path(post.id), method: :get %><br>
+          <%#= link_to  post_favorites_path(post.id), method: :post do %>
+            <!--<i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>-->
+            <!--<i class="fas fa-heart" aria-hidden="true"></i>-->
+          <%# end %>
+          <% if post.favorited?(current_customer) %>
+          <%= link_to post_favorites_path(post.id), method: :delete do %>
+          <span style="color:red;">❤︎</span>
+          <% end %>
+          <% else %>
+          <%= link_to post_favorites_path(post.id), method: :post do %>
+          <span>❤︎</span>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <%#= paginate @posts %>
+</div>

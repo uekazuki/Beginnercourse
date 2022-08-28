@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @public_customers.each do |public_customer| %>
+    <% @users.each do |public_customer| %>
       <tr>
         <td><%= link_to 'Show', public_customer %></td>
         <td><%= link_to 'Edit', edit_public_customer_path(public_customer) %></td>

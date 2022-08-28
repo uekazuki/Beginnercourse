@@ -1,15 +1,19 @@
-class FavoritesController < ApplicationController
+class Public::FavoritesController < ApplicationController
   def create
-    book = Book.find(params[:book_id])
-    favorite = current_user.favorites.new(book_id: book.id)
+    post = Post.find(params[:post_id])
+    favorite = current_customer.favorites.new(post_id: post.id)
     favorite.save
     redirect_to request.referer
   end
 
   def destroy
-    book = Book.find(params[:book_id])
-    favorite = current_user.favorites.find_by(book_id: book.id)
+    post = Post.find(params[:post_id])
+    favorite = current_customer.favorites.find_by(post_id: post.id)
     favorite.destroy
     redirect_to request.referer
+  end
+  
+  def index
+    @favorites = current_customer.favorites
   end
 end

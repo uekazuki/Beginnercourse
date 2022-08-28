@@ -3,7 +3,7 @@ class Public::PostCommentsController < ApplicationController
 
   # GET /public/post_comments or /public/post_comments.json
   def index
-    @public_post_comments = Public::PostComment.all
+    @comments = Comment.all
   end
 
   # GET /public/post_comments/1 or /public/post_comments/1.json
@@ -12,7 +12,8 @@ class Public::PostCommentsController < ApplicationController
 
   # GET /public/post_comments/new
   def new
-    @public_post_comment = Public::PostComment.new
+    @comment = Comment.new
+    @post = Post.find(params[:post_id])
   end
 
   # GET /public/post_comments/1/edit
@@ -21,35 +22,34 @@ class Public::PostCommentsController < ApplicationController
 
   # POST /public/post_comments or /public/post_comments.json
   def create
-    @public_post_comment = Public::PostComment.new(public_post_comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.post_id = params[:post_id]
+    @comment.customer_id = current_customer.id
 
-    respond_to do |format|
-      if @public_post_comment.save
-        format.html { redirect_to public_post_comment_url(@public_post_comment), notice: "Post comment was successfully created." }
-        format.json { render :show, status: :created, location: @public_post_comment }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @public_post_comment.errors, status: :unprocessable_entity }
-      end
+
+    if @comment.save
+       redirect_to posts_path
+    else
+       render :new
     end
   end
 
   # PATCH/PUT /public/post_comments/1 or /public/post_comments/1.json
   def update
     respond_to do |format|
-      if @public_post_comment.update(public_post_comment_params)
-        format.html { redirect_to public_post_comment_url(@public_post_comment), notice: "Post comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @public_post_comment }
+      if @comment.update(public_post_comment_params)
+        format.html { redirect_to public_post_comment_url(@comment), notice: "Post comment was successfully updated." }
+        format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @public_post_comment.errors, status: :unprocessable_entity }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /public/post_comments/1 or /public/post_comments/1.json
   def destroy
-    @public_post_comment.destroy
+    @comment.destroy
 
     respond_to do |format|
       format.html { redirect_to public_post_comments_url, notice: "Post comment was successfully destroyed." }
@@ -60,11 +60,11 @@ class Public::PostCommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_public_post_comment
-      @public_post_comment = Public::PostComment.find(params[:id])
+      @comment = Comment.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
-    def public_post_comment_params
-      params.fetch(:public_post_comment, {})
+    def comment_params
+      params.require(:comment).permit(:comment)
     end
 end
