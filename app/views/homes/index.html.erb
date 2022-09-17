@@ -10,6 +10,7 @@
   </thead>
 
   <tbody>
+    <%= link_to 'ゲストログイン（閲覧用）', homes_guest_sign_in_path, method: :post %>
     <% @homes.each do |home| %>
       <tr>
         <td><%= link_to 'Show', home %></td>

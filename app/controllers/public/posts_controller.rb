@@ -2,8 +2,8 @@ class Public::PostsController < ApplicationController
   def index
     if params[:q].present?
       @posts = Post.where("product_name LIKE ?", "%#{params[:q].strip}%")
-    elsif params[:tag].present?
-      
+    elsif params[:tag_id].present?
+      @posts = Tag.find(params[:tag_id]).posts
     else
       @posts = Post.all
     end
@@ -36,6 +36,6 @@ class Public::PostsController < ApplicationController
   end
   private
   def posts_params
-    params.require(:post).permit(:product_name, :content)
+    params.require(:post).permit(:image, :product_name, :content, tag_ids: [])
   end
 end

@@ -22,7 +22,8 @@ class Customers::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     current_customer.update(customer_params)
-    redirect_to customers_path
+    flash[:notice] = "successfully"
+    redirect_to posts_path
   end
 
   # DELETE /resource

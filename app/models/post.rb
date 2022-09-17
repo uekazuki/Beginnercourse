@@ -3,6 +3,8 @@ class Post < ApplicationRecord
    has_many :favorites
    has_many :comments
    has_one_attached :image
+   has_many :post_tags, dependent: :destroy
+   has_many :tags, through: :post_tags
 
    def get_image
     if image.attached?

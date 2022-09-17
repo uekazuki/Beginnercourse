@@ -1,67 +1,40 @@
-class Admin::SessionsController < ApplicationController
-  before_action :set_admin_session, only: %i[ show edit update destroy ]
+class Admin::SessionsController < Devise::SessionsController
+  # before_action :configure_sign_in_params, only: [:create]
 
+  # GET /resource/sign_in
+  # def new
+  #   super
+  # end
+
+  # POST /resource/sign_in
+  #def create
+     #super
+  #end
+
+  # DELETE /resource/sign_out
+  # def destroy
+  #   super
+  # end
+
+  protected
+
+  # If you have extra params to permit, append them to the sanitizer.
+  # def configure_sign_in_params
+  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+  # end
+  
   # GET /admin/sessions or /admin/sessions.json
-  def index
-    @admin_sessions = Admin::Session.all
-  end
 
-  # GET /admin/sessions/1 or /admin/sessions/1.json
-  def show
-  end
+  #def after_sign_in_path_for(resource)
+    #admin_items_path
+  #end
 
-  # GET /admin/sessions/new
-  def new
-    @admin_session = Admin::Session.new
-  end
-
-  # GET /admin/sessions/1/edit
-  def edit
-  end
-
-  # POST /admin/sessions or /admin/sessions.json
-  def create
-    @admin_session = Admin::Session.new(admin_session_params)
-
-    respond_to do |format|
-      if @admin_session.save
-        format.html { redirect_to admin_session_url(@admin_session), notice: "Session was successfully created." }
-        format.json { render :show, status: :created, location: @admin_session }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @admin_session.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /admin/sessions/1 or /admin/sessions/1.json
-  def update
-    respond_to do |format|
-      if @admin_session.update(admin_session_params)
-        format.html { redirect_to admin_session_url(@admin_session), notice: "Session was successfully updated." }
-        format.json { render :show, status: :ok, location: @admin_session }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @admin_session.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /admin/sessions/1 or /admin/sessions/1.json
-  def destroy
-    @admin_session.destroy
-
-    respond_to do |format|
-      format.html { redirect_to admin_sessions_url, notice: "Session was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  def after_sign_out_path_for(resource)
+    new_admin_session_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_admin_session
-      @admin_session = Admin::Session.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def admin_session_params

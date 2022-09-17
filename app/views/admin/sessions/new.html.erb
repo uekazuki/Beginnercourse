@@ -1,5 +1,16 @@
-<h1>New Admin Session</h1>
+<%= form_with model: @admin, url: admin_session_path do |f| %>
+<div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div><br />
+    
+  </div>
 
-<%= render 'form', admin_session: @admin_session %>
-
-<%= link_to 'Back', admin_sessions_path %>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "current-password" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

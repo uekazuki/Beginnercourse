@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+[
+   { name: '中華' },
+   { name: 'おつまみ' },
+   { name: '和食' },
+   { name: '洋食' },
+].each do |h|
+   Tag.find_or_create_by(name: h[:name])
+  end
