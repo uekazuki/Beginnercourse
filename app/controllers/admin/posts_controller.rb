@@ -9,5 +9,4 @@ def destroy
    redirect_to admin_posts_path
 end
 
-
 end
