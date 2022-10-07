@@ -16,7 +16,6 @@
     <div class="card-body">
       <div class="row">
         <div class="col-2">
-          <%#= image_tag post.get_image, class:"mt-3 rounded-circle"; %>
         </div>
         <div class="col-10">
           <p class="card-title">
@@ -30,10 +29,6 @@
           <p class="card-text">説明：<%= post.content %></p>
           <span><%= link_to "#{post.comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
           <%= button_to "kommentosuru", new_post_post_comment_path(post.id), method: :get %><br>
-          <%#= link_to  post_favorites_path(post.id), method: :post do %>
-            <!--<i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>-->
-            <!--<i class="fas fa-heart" aria-hidden="true"></i>-->
-          <%# end %>
           <% if post.favorited?(current_customer) %>
           <%= link_to post_favorites_path(post.id), method: :delete do %>
           <span style="color:red;">❤︎</span>
@@ -48,5 +43,4 @@
     </div>
   </div>
   <% end %>
-  <%#= paginate @posts %>
 </div>
