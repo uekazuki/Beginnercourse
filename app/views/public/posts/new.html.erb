@@ -13,6 +13,7 @@
             <% end %>
           </ul>
         <% end %>
+        
         <%= form_with model: @posts do |f| %>
         <div class="check_box">
             <span>タグ</span>
@@ -24,6 +25,7 @@
                <% end %>
              </div>
            <% end %>
+           
          </div>
           <%= f.file_field :image, accept: "image/*", class: "w-100" %>
           <div class="input-group mb-3 mt-4">
